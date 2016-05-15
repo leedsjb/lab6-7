@@ -109,7 +109,7 @@ func main() {
 		// columns
 		var title string
 		for rows.Next() {
-			// rows.Scan() // put columns here prefaced with &
+			rows.Scan(&title) // put columns here prefaced with &
 			table += "<tr><td>" + title + "</td></tr>" // <--- EDIT THIS LINE
 		}
 		// finally, close out the body and table
@@ -139,7 +139,7 @@ func main() {
 		var name string
 		var count int
 		for rows.Next() {
-			// rows.Scan() // put columns here prefaced with &
+			rows.Scan(&name, &count) // put columns here prefaced with &
 			table += "<tr><td>" + name + "</td><td>" + strconv.Itoa(count) + "</td></tr>" // <--- EDIT THIS LINE
 		}
 		// finally, close out the body and table
