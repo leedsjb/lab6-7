@@ -120,7 +120,7 @@ func main() {
 	router.GET("/query3", func(c *gin.Context) {
 		table := "<table class='table'><thead><tr>"
 		// put your query here
-		rows, err := db.Query("SELECT artist.firstName, COUNT(album.albumId) FROM artist NATURAL JOIN album GROUP BY artist.artistId") // <--- EDIT THIS LINE
+		rows, err := db.Query("SELECT artist.name, COUNT(album.albumId) FROM artist NATURAL JOIN album GROUP BY artist.artistId") // <--- EDIT THIS LINE
 		if err != nil {
 			// careful about returning errors to the user!
 			c.AbortWithError(http.StatusInternalServerError, err)
