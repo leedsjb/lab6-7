@@ -9,7 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	//"strconv"
+	"strconv"
 
 	// this allows us to run our web server
 	"github.com/gin-gonic/gin"
@@ -120,7 +120,7 @@ func main() {
 	router.GET("/query3", func(c *gin.Context) {
 		table := "<table class='table'><thead><tr>"
 		// put your query here
-		rows, err := db.Query("SELECT * FROM table1") // <--- EDIT THIS LINE
+		rows, err := db.Query("SELECT artist.firstName, COUNT(album.albumId) FROM artist NATURAL JOIN album GROUP BY artist.artistId") // <--- EDIT THIS LINE
 		if err != nil {
 			// careful about returning errors to the user!
 			c.AbortWithError(http.StatusInternalServerError, err)
@@ -136,9 +136,11 @@ func main() {
 		// once you've added all the columns in, close the header
 		table += "</thead><tbody>"
 		// columns
+		var name string
+		var count int
 		for rows.Next() {
 			// rows.Scan() // put columns here prefaced with &
-			table += "<tr><td></td></tr>" // <--- EDIT THIS LINE
+			table += "<tr><td>" + name + "</td><td>" + strconv.Itoa(count) + "</td></tr>" // <--- EDIT THIS LINE
 		}
 		// finally, close out the body and table
 		table += "</tbody></table>"
